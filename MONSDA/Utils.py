@@ -62,20 +62,15 @@
 # # sys.argv[0] also fails, because it doesn't not always contain the path.
 
 import collections
-import datetime
 import functools
-import glob
 import gzip
 import hashlib
 import heapq
 import inspect
 import itertools
-import json
 import logging
 import os
 import re
-import shutil
-import subprocess
 import sys
 import traceback as tb
 from collections import OrderedDict, defaultdict
@@ -85,17 +80,10 @@ from operator import itemgetter
 import numpy as np
 import six
 from Bio import SeqIO
-from natsort import natsorted
-from snakemake.common.configfile import load_configfile
 
-try:
-    scriptname = (
-        os.path.basename(inspect.stack()[-1].filename)
-        .replace("Run", "")
-        .replace(".py", "")
-    )
+
+def setup_logger(scriptname):
     log = logging.getLogger(scriptname)
-
     lvl = log.level if log.level else "INFO"
     for handler in log.handlers[:]:
         handler.close()
@@ -117,7 +105,16 @@ try:
     )
     log.addHandler(handler)
     log.setLevel(lvl)
+    return log
 
+
+try:
+    scriptname = (
+        os.path.basename(inspect.stack()[-1].filename)
+        .replace("Run", "")
+        .replace(".py", "")
+    )
+    log = setup_logger(scriptname)
 except Exception:
     exc_type, exc_value, exc_tb = sys.exc_info()
     tbe = tb.TracebackException(

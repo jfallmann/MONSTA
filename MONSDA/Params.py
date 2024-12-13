@@ -65,7 +65,6 @@ import datetime
 import glob
 import inspect
 import itertools
-import logging
 import os
 import re
 import shutil
@@ -77,6 +76,7 @@ from natsort import natsorted
 
 import MONSDA.Utils as mu
 from MONSDA.Utils import check_run as check_run
+from MONSDA.Utils import setup_logger
 
 # cmd_subfolder = [os.path.join(os.path.dirname(os.path.realpath(os.path.abspath(inspect.getfile( inspect.currentframe() )) )),"../MONSDA/lib"), os.path.join(os.path.dirname(os.path.realpath(os.path.abspath(inspect.getfile( inspect.currentframe() )) )),"MONSDA/lib"), os.path.join(os.path.dirname(os.path.realpath(os.path.abspath(inspect.getfile( inspect.currentframe() )) )),"../lib"), os.path.join(os.path.dirname(os.path.realpath(os.path.abspath(inspect.getfile( inspect.currentframe() )) )),"lib")]
 # for x in cmd_subfolder:
@@ -90,30 +90,7 @@ try:
         .replace("Run", "")
         .replace(".py", "")
     )
-    log = logging.getLogger(scriptname)
-
-    lvl = log.level if log.level else "INFO"
-    for handler in log.handlers[:]:
-        handler.close()
-        log.removeHandler(handler)
-    handler = logging.FileHandler("LOGS/MONSDA.log", mode="a")
-    handler.setFormatter(
-        logging.Formatter(
-            fmt="%(asctime)s %(levelname)-8s %(name)-12s %(message)s",
-            datefmt="%m-%d %H:%M",
-        )
-    )
-    log.addHandler(handler)
-    handler = logging.StreamHandler()
-    handler.setFormatter(
-        logging.Formatter(
-            fmt="%(asctime)s %(levelname)-8s %(name)-12s %(message)s",
-            datefmt="%m-%d %H:%M",
-        )
-    )
-    log.addHandler(handler)
-    log.setLevel(lvl)
-
+    log = setup_logger(scriptname)
 except Exception:
     exc_type, exc_value, exc_tb = sys.exc_info()
     tbe = tb.TracebackException(
