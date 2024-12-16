@@ -46,7 +46,7 @@
         "TOOLS": {
             "trimgalore": "trim_galore",
             "cutadapt": "cutadapt",
-            "bbduk": "bbmap"
+            "bbduk": "bbduk.sh"
         },
         "Test": {
             "trimgalore": {
@@ -86,7 +86,7 @@
         "Test": {
             "star": {
                 "OPTIONS": {
-                    "INDEX": "--genomeSAindexNbases 7",
+                    "INDEX": "",
                     "MAP": "--outSAMprimaryFlag AllBestScore",
                     "EXTENSION": ""
                 }
