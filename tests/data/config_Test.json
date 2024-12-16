@@ -11,11 +11,11 @@
                 "SRR6357072"
             ],
             "SEQUENCING": "paired",
-            "REFERENCE": "/home/fall/Projects/INPROGRESS/MONSDA/tests/data/GENOME/genome.fa.gz",
+            "REFERENCE": "GENOME/genome.fa.gz",
             "DECOY": "",
             "ANNOTATION": {
-                "GTF": "/home/fall/Projects/INPROGRESS/MONSDA/tests/data/GENOME/genomic.gtf.gz",
-                "GFF": "/home/fall/Projects/INPROGRESS/MONSDA/tests/data/GENOME/genomic.gff.gz"
+                "GTF": "GENOME/genomic.gtf.gz",
+                "GFF": "GENOME/genomic.gff.gz"
             },
             "IP": "",
             "GROUPS": [
@@ -68,13 +68,11 @@
     },
     "DEDUP": {
         "TOOLS": {
-            "umitools": "umi_tools"
+            "picard": "picard"
         },
         "Test": {
-            "umitools": {
+            "picard": {
                 "OPTIONS": {
-                    "WHITELIST": "--extract-method string --bc-pattern 'XNNNNX'",
-                    "EXTRACT": "--extract-umi-method read_id",
                     "DEDUP": ""
                 }
             }
