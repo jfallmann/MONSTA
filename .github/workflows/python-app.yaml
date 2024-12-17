@@ -10,36 +10,30 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
+    - name: Set up Conda
+      uses: conda-incubator/setup-miniconda@v2
       with:
-        python-version: '3.12'
+        python-version: 3.12
+        environment-file: environment.yml
+        auto-activate-base: false
 
     - name: Install build dependencies
       run: |
+        conda activate monsda
         python -m pip install --upgrade pip
         pip install build
 
     - name: Build the project
       run: |
+        conda activate monsda
         python -m build
 
     - name: Install the package
       run: |
+        conda activate monsda
         pip install dist/*.whl
-
-    - name: Install additional dependencies
-      run: |
-        pip install setuptools>=42
-        pip install tomli
-        pip install biopython>=1.83
-        pip install snakemake>=8.20.5
-        pip install black>=21.5b2
-        pip install flake8>=3.8.3
-        pip install isort>=5.13.2
-        pip install sphinx>=4.1.0
-        pip install versioneer>=0.20
 
     - name: Run tests
       run: |
+        conda activate monsda
         bash tests/cicd_test.sh
