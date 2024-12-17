@@ -3,37 +3,42 @@ name: Python application
 on: [push, pull_request]
 
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Set up Conda
-      uses: conda-incubator/setup-miniconda@v2
-      with:
-        python-version: 3.12
-        environment-file: environment.yml
-        auto-activate-base: false
-
-    - name: Install build dependencies
-      run: |
-        conda activate monsda
-        python -m pip install --upgrade pip
-        pip install build
-
-    - name: Build the project
-      run: |
-        conda activate monsda
-        python -m build
-
-    - name: Install the package
-      run: |
-        conda activate monsda
-        pip install dist/*.whl
-
-    - name: Run tests
-      run: |
-        conda activate monsda
-        bash tests/cicd_test.sh
+  monsdatest:   
+    name: monsda-test 
+    runs-on: "ubuntu-latest"
+    defaults:
+      run:
+        shell: bash -el {0}
+    # Docker Hub image that `postgres-job` executes in
+    container: node:latest
+    # service containers to run with `postgres-job`
+    steps:      
+      - uses: actions/checkout@master
+        with:
+          submodules: recursive
+      - uses: conda-incubator/setup-miniconda@master
+        with:
+          miniconda-version: "latest"
+          activate-environment: monsda-test
+          environment-file: environment.yml
+          python-version: 3.12.2
+          channels: conda-forge,bioconda
+          allow-softlinks: true
+          channel-priority: flexible
+          show-channel-urls: true
+          use-only-tar-bz2: false
+          auto-activate-base: false
+      - name: Run tests
+        run: |
+          echo "Build start"    
+          git tag -f test                  
+          python -m pip install --upgrade pip                
+          python -m pip install build
+          #echo -e "[egg_info]\ntag_build=.test+monsda\n" > /tmp/build_opts.cfg
+          #DIST_EXTRA_CONFIG=/tmp/build_opts.cfg python -m build          
+          python -m build          
+          pip install dist/*.whl
+          echo $PATH
+          monsda --version          
+          echo "Build finished, starting tests"          
+          bash tests/cicd_test.sh
