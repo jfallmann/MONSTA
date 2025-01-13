@@ -32,9 +32,9 @@ jobs:
         run: |
           git config user.name "Testuser"
           git config user.email "test@nomailforthisuser.com"
-      - name: Tag the commit for testinh
+      - name: Tag the commit for testing
         run: |
-          git tag -a "test" -m "tag for testing"          
+          git tag -f "test"
       - name: Run tests
         run: |
           echo "Build start"              

@@ -3,7 +3,6 @@ channels:
   - conda-forge
   - bioconda
   - nodefaults
-  - r
 dependencies:
   - bioconductor-annotate =1.76.0
   - bioconductor-annotationdbi =1.60.0
