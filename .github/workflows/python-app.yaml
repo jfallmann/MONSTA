@@ -28,16 +28,12 @@ jobs:
           show-channel-urls: true
           use-only-tar-bz2: false
           auto-activate-base: false
-      - name: Set up Git
-        run: |
-          git config user.name "Testuser"
-          git config user.email "test@nomailforthisuser.com"
-      - name: Tag the commit for testing
-        run: |
-          git tag -f "test"
       - name: Run tests
         run: |
-          echo "Build start"              
+          echo "Build start" 
+          git config user.name "Testuser"
+          git config user.email "test@nomailforthisuser.com"          
+          git tag -f "test"             
           python -m pip install --upgrade pip                
           python -m pip install build
           #echo -e '[egg_info]\ntag_build=.test+monsda\n' > /tmp/build_opts.cfg
