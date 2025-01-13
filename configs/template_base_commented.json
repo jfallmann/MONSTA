@@ -172,7 +172,7 @@
       },
       "OPTIONS": {
           "INDEX" : "--sjdbGTFfeatureExon exon --sjdbGTFtagExonParentTranscript Parent --genomeSAindexNbases 13",
-          "MAP": "--sjdbGTFfeatureExon exon --sjdbGTFtagExonParentTranscript Parent --outSAMprimaryFlag AllBestScore",
+          "MAP": "--sjdbGTFfeatureExon exon --sjdbGTFtagExonParentTranscript Parent --outSAMprimaryFlag AllBestScore --outSAMattributes NH HI NM MD AS nM jM jI XS",
           "EXTENSION" : ""
       }
     },

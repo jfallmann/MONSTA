@@ -167,7 +167,7 @@
                                  "OPTIONS":  # first entry in list is a dict of options for indexing, second for mapping, third can be e.g. appendix to index name, useful especially with minimap if using different kmer sizes
                                     {
                                         "INDEX" : "--sjdbGTFfeatureExon exon --sjdbGTFtagExonParentTranscript Parent --genomeSAindexNbases 13",  #indexing options
-                                        "MAP": "--sjdbGTFfeatureExon exon --sjdbGTFtagExonParentTranscript Parent --outSAMprimaryFlag AllBestScore",  #mapping options
+                                        "MAP": "--sjdbGTFfeatureExon exon --sjdbGTFtagExonParentTranscript Parent --outSAMprimaryFlag AllBestScore --outSAMattributes NH HI NM MD AS nM jM jI XS",  #mapping options
                                         "EXTENSION" : ""
                                     }
                              },
