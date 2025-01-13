@@ -28,14 +28,21 @@ jobs:
           show-channel-urls: true
           use-only-tar-bz2: false
           auto-activate-base: false
+      - name: Set up Git
+        run: |
+          git config user.name "Testuser"
+          git config user.email "test@nomailforthisuser.com"
+      - name: Tag the commit for testinh
+        run: |
+          git tag -a "test" -m "tag for testing"          
       - name: Run tests
         run: |
           echo "Build start"              
           python -m pip install --upgrade pip                
           python -m pip install build
-          echo -e '[egg_info]\ntag_build=.test+monsda\n' > /tmp/build_opts.cfg
-          DIST_EXTRA_CONFIG=/tmp/build_opts.cfg python -m build   
-          #python -m build          
+          #echo -e '[egg_info]\ntag_build=.test+monsda\n' > /tmp/build_opts.cfg
+          #DIST_EXTRA_CONFIG=/tmp/build_opts.cfg python -m build   
+          python -m build          
           pip install dist/*.whl
           echo $PATH
           monsda --version          
