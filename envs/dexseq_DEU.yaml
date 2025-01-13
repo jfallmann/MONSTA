@@ -138,6 +138,6 @@ dependencies:
   - r-xtable =1.8_4
   - r-yaml =2.3.7
   - readline =8.2
-  - samtools =1.16.1
+  - samtools =1.21
   - sed =4.8
   - yaml =0.2.5

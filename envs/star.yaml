@@ -3,7 +3,6 @@ channels:
   - conda-forge
   - bioconda
   - nodefaults
-  - r
 dependencies:
-  - samtools =1.16.1
-  - star =2.7.10b
+  - samtools =1.21
+  - star =2.7.11b
