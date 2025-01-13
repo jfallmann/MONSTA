@@ -32,13 +32,14 @@ jobs:
         run: |
           echo "Build start" 
           git config user.name "Testuser"
-          git config user.email "test@nomailforthisuser.com"          
-          git tag -f "test"             
+          git config user.email "test@nomailforthisuser.com"                    
           python -m pip install --upgrade pip                
-          python -m pip install build
-          #echo -e '[egg_info]\ntag_build=.test+monsda\n' > /tmp/build_opts.cfg
-          #DIST_EXTRA_CONFIG=/tmp/build_opts.cfg python -m build   
-          python -m build          
+          python -m pip install build                              
+          #git add .
+          #git commit -m "testbuild"
+          git tag -f -a "vghatest" -m "test"
+          git checkout -b testbuild vghatest 
+          python -m build
           pip install dist/*.whl
           echo $PATH
           monsda --version          
