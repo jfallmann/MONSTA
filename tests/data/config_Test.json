@@ -2,7 +2,7 @@
     "WORKFLOWS": "QC,TRIMMING,DEDUP,MAPPING,COUNTING,TRACKS,PEAKS,DE,DEU,DAS,DTU",
     "BINS": "",
     "MAXTHREADS": "4",
-    "VERSION": "2.0.0-a",
+    "VERSION": "FIXME",
     "SETTINGS": {
         "Test": {
             "SAMPLES": [

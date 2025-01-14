@@ -34,14 +34,11 @@ jobs:
           git config user.name "Testuser"
           git config user.email "test@nomailforthisuser.com"                    
           python -m pip install --upgrade pip                
-          python -m pip install build                              
-          #git add .
-          #git commit -m "testbuild"
-          git tag -f -a "vghatest" -m "test"
-          git checkout -b testbuild vghatest 
+          python -m pip install build                                        
           python -m build
-          pip install dist/*.whl
-          echo $PATH
-          monsda --version          
+          pip install dist/*.whl          
+          monsda --version 2> /tmp/monsda_version.txt
+          a=$(cat /tmp/monsda_version.txt |sed 's/MONSDA version //g'); sed -i 's/"VERSION": "FIXME"/"VERSION": "'$a'"/g' tests/data/config_Test.json
+          head tests/data/config_Test.json
           echo "Build finished, starting tests"          
           bash tests/cicd_test.sh
