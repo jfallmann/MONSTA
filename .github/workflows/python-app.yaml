@@ -38,10 +38,11 @@ jobs:
       - name: preparing test
         run: |          
           echo "Build finished, preparing tests"           
-          echo $PWD                   
-          a=$(monsda --version 2>&1 >/dev/null |sed 's/MONSDA version //g')
+          echo $PWD
+          monsda --version 2>&1 >/dev/null |sed 's/MONSDA version //g'                            
+          export a=$(monsda --version 2>&1 >/dev/null |sed 's/MONSDA version //g')
           echo $a
-          sed -i 's/"VERSION": "FIXME"/"VERSION": "'$a'"/g' tests/data/config_Test.json   
+          sed -i "s/\"VERSION\": \"FIXME\"/\"VERSION\": \"$a\"/g" tests/data/config_Test.json   
       - name: running test
         run: |   
           echo "Running tests"       
