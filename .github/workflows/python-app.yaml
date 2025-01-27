@@ -30,6 +30,7 @@ jobs:
           auto-activate-base: false
       - name: build and install monsda
         run: |
+          cd ${{ github.workspace }}
           echo "Build start"          
           python -m pip install --upgrade pip                
           python -m pip install build                                        
@@ -37,13 +38,12 @@ jobs:
           pip install dist/*.whl
       - name: preparing test
         run: |          
-          echo "Build finished, preparing tests"           
-          echo $PWD
-          monsda --version 2>&1 >/dev/null |sed 's/MONSDA version //g'                            
-          export a=$(monsda --version 2>&1 >/dev/null |sed 's/MONSDA version //g')
-          echo $a
+          echo "Build finished, preparing tests"                     
+          export a=$(monsda --version 2>&1 >/dev/null |sed 's/MONSDA version //g')          
           sed -i "s/\"VERSION\": \"FIXME\"/\"VERSION\": \"$a\"/g" tests/data/config_Test.json   
       - name: running test
         run: |   
-          echo "Running tests"       
-          bash tests/cicd_test.sh
+          echo "Running tests" 
+          cd ${{ github.workspace }}/tests
+          ln -fs data/* .          
+          bash -el cicd_test.sh
