@@ -1,4 +1,5 @@
-#conda activate monsda-test
+#$/usr/bin/env bash -el
+conda activate monsda-test
 
 # Get the directory of the current script
 SCRIPT_DIR=$(dirname "$(realpath "$0")")
